@@ -26,7 +26,7 @@ ENV COMFY_DIR=$HOME/comfyui
 
 # Copy the setup scripts into the Docker image
 COPY ./init.sh /init.sh
-COPY ./setup-scripts /setup-scripts
+# COPY ./setup-scripts /setup-scripts
 
 # Make scripts executable
 RUN chmod +x /init.sh
