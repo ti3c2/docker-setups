@@ -13,6 +13,8 @@ RUN apt-get update && \
     ninja-build gettext cmake unzip curl wget build-essential \
     # Install thing responsible for apt-add-repository
     software-properties-common \
+    # Basic CLI tools
+    vim ncdu \
     && \
     # Clean apt cache
     apt-get clean && \
