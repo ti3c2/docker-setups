@@ -1,5 +1,5 @@
-# Use the lightweight version of Ubuntu
-FROM ubuntu:22.04
+# FROM ubuntu:22.04
+FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
 
 # Set the environment variable DEBIAN_FRONTEND to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
