@@ -20,6 +20,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Setup environment variables
+ENV PATH=$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
+ENV COMFY_DIR=$HOME/comfyui
+
 # Copy the setup scripts into the Docker image
 COPY ./init.sh /init.sh
 COPY ./setup-scripts /setup-scripts
