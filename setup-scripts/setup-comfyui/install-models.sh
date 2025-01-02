@@ -3,14 +3,20 @@
 # Load the model names from the environment variable (comma-separated)
 LOAD_MODELS=${LOAD_MODELS}
 
-# Check if LOAD_MODELS is empty
-if [ -z "$LOAD_MODELS" ]; then
-    echo "No models specified in LOAD_MODELS. Exiting without loading any models."
-    exit 0
+# Check if at least one argument (model names) is provided
+if [ "$#" -eq 0 ]; then
+    echo "No models specified as arguments. Exiting without loading any models."
+    exit 1
 fi
 
 # Convert the comma-separated string into an array
-IFS=',' read -r -a models <<< "$LOAD_MODELS"
+IFS=',' read -r -a models <<< "$*"
+
+# Check if the models array is empty
+if [ "${#models[@]}" -eq 0 ]; then
+    echo "No valid model names provided. Exiting without loading any models."
+    exit 1
+fi
 
 # Define models path
 MODELS_PATH="$HOME/comfyui/models"

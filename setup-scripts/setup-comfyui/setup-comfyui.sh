@@ -17,4 +17,4 @@ pip install xformers!=0.0.18 --no-cache-dir -r requirements.txt --extra-index-ur
 
 # Execute installation scripts for components
 bash /setup-scripts/setup-comfyui/install-custom-nodes.sh
-bash /setup-scripts/setup-comfyui/install-models.sh
+bash /setup-scripts/setup-comfyui/install-models.sh "{$LOAD_MODELS}"
