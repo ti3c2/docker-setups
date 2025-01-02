@@ -25,3 +25,6 @@ done
 
 # Navigate back to comfyui
 cd "$HOME/comfyui"
+
+# Install requirements for all the custom_nodes
+find . -name 'requirements.txt' -exec pip install -r {} \;
