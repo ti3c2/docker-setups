@@ -27,4 +27,10 @@ done
 cd "$HOME/comfyui"
 
 # Install requirements for all the custom_nodes
+echo "Installing requirements for custom nodes recursively..."
 find . -name 'requirements.txt' -exec pip install -r {} \;
+
+# Uninstall torch and install the right version
+echo "Uninstalling torch and installing the right version..."
+pip uninstall torch
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
