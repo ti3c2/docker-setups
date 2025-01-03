@@ -13,9 +13,8 @@ apt-get install -y --no-install-recommends \
     gnupg
 
 # Download dotfiles and symlink them
-git clone https://github.com/poqushoi/my-dotfiles /root/dotfiles
-ln -s /root/dotfiles/.config /root/.config
-
+git clone https://github.com/poqushoi/my-dotfiles "$HOME/dotfiles"
+ln -s "$HOME/dotfiles/.config" "$HOME/.config"
 
 # Execute scripts
 bash /setup-scripts/setup-home/install-neovim.sh
