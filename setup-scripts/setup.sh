@@ -12,7 +12,7 @@ while [[ "$#" -gt 0 ]]; do
         --from-env)
             # Load environment variables from .env file
             if [ -f ".env" ]; then
-                export $(grep -v '^#' .env | xargs)
+                export "$(grep -v '^#' .env | xargs)"
             else
                 error_exit "Error: .env file not found. Please create it with the required variables."
             fi
