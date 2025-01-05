@@ -53,6 +53,19 @@ load_juggernautxl() {
 }
 model_functions["JUGGERNAUTXL"]=load_juggernautxl
 
+# Function to load SD3.5 model
+# TODO resolve unauthorized issue
+load_sd35() {
+    echo "Loading SD3.5 model..."
+    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3.5-large/raw/main/sd3.5_large.safetensors
+
+    echo "Loading CLIP models for SD3.5..."
+    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_g.safetensors
+    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_l.safetensors
+    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/t5xxl_fp16.safetensors
+}
+model_functions["SD35"]=load_sd35
+
 # Iterate through the models and load them
 for model in "${models[@]}"; do
     if [[ -n "${model_functions[$model]}" ]]; then
