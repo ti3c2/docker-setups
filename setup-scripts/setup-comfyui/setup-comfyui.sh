@@ -5,9 +5,9 @@ pip install --no-cache-dir --upgrade pip setuptools wheel
 pip install --no-cache-dir datasets huggingface-hub "protobuf<4" "click<8.1"
 
 # Set the working directory for ComfyUI
-COMFY_DIR="$HOME/comfyui"
+export COMFY_DIR="{$COMFY_DIR:-$HOME/comfyui}"
 mkdir -p "$COMFY_DIR"
-cd "$COMFY_DIR"
+cd "$COMFY_DIR" || exit
 
 # Clone ComfyUI repository
 git clone https://github.com/comfyanonymous/ComfyUI .

@@ -19,7 +19,7 @@ if [ "${#models[@]}" -eq 0 ]; then
 fi
 
 # Define models path
-MODELS_PATH="$HOME/comfyui/models"
+MODELS_PATH="$COMFY_DIR/models"
 
 # Define an associative array to map model names to loading functions
 declare -A model_functions

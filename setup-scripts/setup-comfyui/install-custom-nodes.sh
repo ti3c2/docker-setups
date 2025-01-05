@@ -37,16 +37,16 @@ declare -a custom_nodes=(
 )
 
 # Navigate to custom_nodes folder
-mkdir -p "$HOME/comfyui/custom_nodes"
-cd "$HOME/comfyui/custom_nodes"
+mkdir -p "$COMFY_DIR/custom_nodes"
+cd "$COMFY_DIR/custom_nodes"
 
 # Iterate over the array and clone each repository
 for repo in "${custom_nodes[@]}"; do
     git clone "$repo"
 done
 
-# Navigate back to comfyui
-cd "$HOME/comfyui"
+# Navigate back to comfy dir
+cd "$COMFY_DIR"
 
 # Install requirements for all the custom_nodes
 echo "Installing requirements for custom nodes recursively..."
