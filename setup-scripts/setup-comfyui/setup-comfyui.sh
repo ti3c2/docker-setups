@@ -16,5 +16,5 @@ git clone https://github.com/comfyanonymous/ComfyUI .
 pip install xformers!=0.0.18 --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu121
 
 # Execute installation scripts for components
-bash /setup-scripts/setup-comfyui/install-custom-nodes.sh
-bash /setup-scripts/setup-comfyui/install-models.sh "{$LOAD_MODELS}"
+bash "$SETUP_SCRIPTS_DIR/setup-comfyui/install-custom-nodes.sh"
+bash "$SETUP_SCRIPTS_DIR/setup-comfyui/install-models.sh" "{$LOAD_MODELS}"

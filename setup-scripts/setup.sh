@@ -27,21 +27,21 @@ done
 # Conditional script execution based on environment variables
 if [ "$SETUP_HOME" == "1" ]; then
     echo "Running home setup..."
-    bash /setup-scripts/setup-home/setup-home.sh
+    bash "$SETUP_SCRIPTS_DIR/setup-home/setup-home.sh"
 else
     echo "Skipping home setup..."
 fi
 
 if [ "$SETUP_PYTHON" == "1" ]; then
     echo "Running Python setup..."
-    bash /setup-scripts/setup-python/install-python-pyenv.sh
+    bash "$SETUP_SCRIPTS_DIR/setup-python/install-python-pyenv.sh"
 else
     echo "Skipping Python setup..."
 fi
 
 if [ "$SETUP_COMFYUI" == "1" ]; then
     echo "Running ComfyUI setup..."
-    bash /setup-scripts/setup-comfyui/setup-comfyui.sh
+    bash "$SETUP_SCRIPTS_DIR/setup-comfyui/setup-comfyui.sh"
 else
     echo "Skipping Python setup..."
 fi

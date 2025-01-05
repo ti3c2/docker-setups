@@ -18,8 +18,8 @@ git checkout remote-setup
 ln -s "$HOME/dotfiles/.config" "$HOME/.config"
 
 # Execute scripts
-bash /setup-scripts/setup-home/install-neovim.sh
-bash /setup-scripts/setup-home/install-fish.sh
+bash "$SETUP_SCRIPTS_DIR/setup-home/install-neovim.sh"
+bash "$SETUP_SCRIPTS_DIR/setup-home/install-fish.sh"
 
 
 # Clean apt cache
