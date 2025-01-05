@@ -14,6 +14,7 @@ apt-get install -y --no-install-recommends \
 
 # Download dotfiles and symlink them
 git clone https://github.com/poqushoi/my-dotfiles "$HOME/dotfiles"
+git checkout remote-setup
 ln -s "$HOME/dotfiles/.config" "$HOME/.config"
 
 # Execute scripts
