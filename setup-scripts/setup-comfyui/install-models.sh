@@ -26,15 +26,22 @@ EOF
 # Define an associative array to map model names to loading functions
 declare -A model_functions
 
+wget_to_folder() {
+    # Usage: wget_to_folder <folder> <url>
+    # -nc: skip loading if the file already there
+    # -P: specify directory
+    wget -nc -P "$1" "${@:1}"
+}
+
 # Function to load SDXL model
 load_sdxl() {
     model_name="SDXL"
     echo "Loading $model_name model..."
     # -nc to prevent loading of existing file
-    wget -nc -P "$MODELS_PATH/checkpoints/SDXL" https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/SDXL" https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 
     echo "Performing $model_name model-specific steps..."
-    wget -nc -P "$MODELS_PATH/loras/HyperSD/SDXL" https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors
+    wget_to_folder "$MODELS_PATH/loras/HyperSD/SDXL" https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors
 }
 model_functions["SDXL"]=load_sdxl
 
@@ -44,14 +51,14 @@ load_flux() {
     # This is checkpoint made by Comfy. It includes VAE and CLIP
     # The original BlackForest does not include them and requires
     # loading VAE and CLIP separately
-    wget -nc -P "$MODELS_PATH/checkpoints/FLUX1" https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/FLUX1" https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors
 }
 model_functions["FLUX"]=load_flux
 
 # Function to load JuggernautXL model
 load_juggernautxl() {
     echo "Loading JuggernautXL v9..."
-    wget -nc -P "$MODELS_PATH/checkpoints/JuggernautXL" https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/JuggernautXL" https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors
 }
 model_functions["JUGGERNAUTXL"]=load_juggernautxl
 
@@ -59,12 +66,12 @@ model_functions["JUGGERNAUTXL"]=load_juggernautxl
 # TODO resolve unauthorized issue
 load_sd35() {
     echo "Loading SD3.5 model..."
-    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3.5-large/raw/main/sd3.5_large.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3.5-large/raw/main/sd3.5_large.safetensors
 
     echo "Loading CLIP models for SD3.5..."
-    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_g.safetensors
-    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_l.safetensors
-    wget -nc -P "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/t5xxl_fp16.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_g.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/clip_l.safetensors
+    wget_to_folder "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/t5xxl_fp16.safetensors
 }
 model_functions["SD35"]=load_sd35
 
