@@ -1,25 +1,27 @@
 #!/bin/bash
 
-# Load the model names from the environment variable (comma-separated)
-LOAD_MODELS=${LOAD_MODELS}
+# Help message function
+show_help() {
+    local available_models="$*"
+    cat << EOF
+Usage:
+    Required environment variables:
+    - COMFY_DIR: path to ComfyUI installation
+    - LOAD_MODELS: space-separated list of models to install
 
-# Check if at least one argument (model names) is provided
-if [ "$#" -eq 0 ]; then
-    echo "No models specified as arguments. Exiting without loading any models."
+    1. Run using defined environment variables:
+    Check it with 'echo $VAR'
+    Set it with 'export VAR="M1 M2"'
+
+    2. Run using inplace definition of environment variables:
+    COMFY_DIR="/path/to/comfyui" LOAD_MODELS="M1 M2" ./install-models.sh
+
+Available models: $available_models
+
+Note: Models will be downloaded in parallel
+EOF
     exit 1
-fi
-
-# Convert the comma-separated string into an array
-IFS=',' read -r -a models <<< "$*"
-
-# Check if the models array is empty
-if [ "${#models[@]}" -eq 0 ]; then
-    echo "No valid model names provided. Exiting without loading any models."
-    exit 1
-fi
-
-# Define models path
-MODELS_PATH="$COMFY_DIR/models"
+}
 
 # Define an associative array to map model names to loading functions
 declare -A model_functions
@@ -66,12 +68,50 @@ load_sd35() {
 }
 model_functions["SD35"]=load_sd35
 
-# Iterate through the models and load them
-for model in "${models[@]}"; do
+# Function to load single model
+load_model() {
+    model="$1"
     if [[ -n "${model_functions[$model]}" ]]; then
         ${model_functions[$model]}
     else
-        echo "Unknown model name: $model"
-        echo "Please set LOAD_MODELS to valid model names (e.g., 'SDXL,FLUX')."
+        echo "Unknown model name: '$model'"
+        echo "Please set LOAD_MODELS to valid model names (e.g., '${!model_functions[*]}')."
     fi
+}
+
+# Show help
+show_help_with_models() {
+    show_help "${!model_functions[*]}"
+}
+
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+    eval show_help_with_models
+fi
+
+# Check if required env variables are set
+if [ -z "$LOAD_MODELS" ]; then
+    echo "Error: LOAD_MODELS is not set"
+    echo "Use -h or --help for usage information."
+    exit 1
+fi
+
+if [ -z "$COMFY_DIR" ]; then
+    echo "Error: COMFY_DIR is not set"
+    echo "Use -h or --help for usage information."
+    exit 1
+fi
+
+INSTALL_MODELS="$(INSTALL_MODELS:-0)"
+if (( "$INSTALL_MODELS" == "0" )); then
+    echo "INSTALL_MODELS=0. Skip installing models"
+    exit 1
+fi
+
+# Define models path
+export MODELS_PATH="$COMFY_DIR/models"
+
+# Iterate through the models and load them in parallel
+for model in "${LOAD_MODELS[@]}"; do
+    eval load_model "$model" &
 done
+wait
