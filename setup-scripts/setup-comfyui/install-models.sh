@@ -108,7 +108,7 @@ if [ -z "$COMFY_DIR" ]; then
     exit 1
 fi
 
-INSTALL_MODELS="$(INSTALL_MODELS:-0)"
+INSTALL_MODELS="$(INSTALL_MODELS:-1)"
 if (( "$INSTALL_MODELS" == "0" )); then
     echo "INSTALL_MODELS=0. Skip installing models"
     exit 1
@@ -118,7 +118,7 @@ fi
 export MODELS_PATH="$COMFY_DIR/models"
 
 # Iterate through the models and load them in parallel
-for model in "${LOAD_MODELS[@]}"; do
+for model in $LOAD_MODELS[@]; do
     eval load_model "$model" &
 done
 wait
