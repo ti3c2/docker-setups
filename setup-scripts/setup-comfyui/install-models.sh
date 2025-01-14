@@ -17,6 +17,7 @@ Usage:
     COMFY_DIR="/path/to/comfyui" LOAD_MODELS="M1 M2" ./install-models.sh
 
 Available models: $available_models
+Use 'ALL' to load all models
 
 Note: Models will be downloaded in parallel
 EOF
@@ -42,6 +43,41 @@ load_sdxl() {
 
     echo "Performing $model_name model-specific steps..."
     wget_to_folder "$MODELS_PATH/loras/HyperSD/SDXL" https://huggingface.co/ByteDance/Hyper-SD/resolve/main/Hyper-SDXL-4steps-lora.safetensors
+
+    # Controlnet Adapters
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0
+
+    # Controlnet Loras
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank256/control-lora-canny-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank256/control-lora-depth-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank256/control-lora-recolor-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank256/control-lora-sketch-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank128/control-lora-canny-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank128/control-lora-depth-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank128/control-lora-recolor-rank256.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/SDXL" https://huggingface.co/stabilityai/control-lora/raw/main/control-LoRAs-rank128/control-lora-sketch-rank256.safetensors
+
+    # IP-Adapters
+    wget_to_folder "$MODELS_PATH/loras/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid_sdxl_lora.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid-plusv2_sdxl_lora.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid-portrait_sdxl.safetensors
+
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid-portrait_sdxl_unnorm.bin
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid_sdxl.bin
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid-plusv2_sdxl.bin
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter-FaceID/raw/main/ip-adapter-faceid-portrait_sdxl.bin
+
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter/raw/main/sdxl_models/ip-adapter_sdxl.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter/raw/main/sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter/raw/main/sdxl_models/ip-adapter-plus-face_sdxl_vit-h.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter/raw/main/sdxl_models/ip-adapter_sdxl.safetensors
+    wget_to_folder "$MODELS_PATH/ipadapter" https://huggingface.co/h94/IP-Adapter/raw/main/sdxl_models/ip-adapter_sdxl.safetensors
+
 }
 model_functions["SDXL"]=load_sdxl
 
@@ -74,6 +110,15 @@ load_sd35() {
     wget_to_folder "$MODELS_PATH/checkpoints/SD35" https://huggingface.co/stabilityai/stable-diffusion-3-medium/resolve/main/text_encoders/t5xxl_fp16.safetensors
 }
 model_functions["SD35"]=load_sd35
+
+# Function to load CLIPs
+load_clips() {
+    echo "Loading CLIPs..."
+    wget_to_folder "$MODELS_PATH/default" https://huggingface.co/comfyanonymous/flux_text_encoders/raw/main/clip_l.safetensors
+    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/stabilityai/control-lora/raw/main/revision/clip_vision_g.safetensors
+    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/openai/clip-vit-large-patch14/raw/main/model.safetensors
+}
+model_functions["CLIPs"]=load_clips
 
 # Function to load single model
 load_model() {
@@ -117,8 +162,14 @@ fi
 # Define models path
 export MODELS_PATH="$COMFY_DIR/models"
 
+# Set models to all the keys if the flag is ALL
+MODELS_TO_LOAD=$LOAD_MODELS
+if [[ "${LOAD_MODELS[*]}" == "ALL" ]]; then
+    MODELS_TO_LOAD="${!model_functions[*]}"
+fi
+
 # Iterate through the models and load them in parallel
-for model in $LOAD_MODELS[@]; do
-    eval load_model "$model" &
+for model in $MODELS_TO_LOAD; do
+    eval load_model $model &
 done
 wait
