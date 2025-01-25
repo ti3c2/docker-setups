@@ -1,5 +1,10 @@
 #!/bin/bash
 
+INSTALL_PYTHON_PYENV="${INSTALL_PYTHON_PYENV:-1}"
+if (( "$INSTALL_PYTHON_PYENV" == "0" )); then
+    exit 1
+fi
+
 # Install dependencies
 apt-get update && apt-get install -y \
     make build-essential libssl-dev zlib1g-dev \
@@ -16,8 +21,8 @@ export PATH="$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH"
 
 # Install Python version
 PYTHON_VERSION=${1:-3.10.12}  # Default to 3.10.12 if no version is provided
-pyenv install $PYTHON_VERSION
-pyenv global $PYTHON_VERSION
+pyenv install "$PYTHON_VERSION"
+pyenv global "$PYTHON_VERSION"
 pyenv rehash
 
 # Upgrade pip and install necessary packages
