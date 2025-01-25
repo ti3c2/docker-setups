@@ -7,6 +7,7 @@ error_exit() {
 }
 
 # Parse command-line arguments
+# TODO Remove this mess
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --from-env)
@@ -23,6 +24,9 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift
 done
+
+# Set alias for setup-scripts directory
+export SETUP_SCRIPTS_DIR="${SETUP_SCRIPTS_DIR:-$INIT_DIR/setup-scripts}"
 
 # Conditional script execution based on environment variables
 if [ "$SETUP_HOME" == "1" ]; then
