@@ -88,6 +88,13 @@ load_flux() {
     # The original BlackForest does not include them and requires
     # loading VAE and CLIP separately
     wget_to_folder "$MODELS_PATH/checkpoints/FLUX1" https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors
+    # wget_to_folder "$MODELS_PATH/diffusion_models/FLUX1" https://huggingface.co/comfyanonymous/flux_dev_scaled_fp8_test/resolve/main/flux_dev_fp8_scaled_diffusion_model.safetensors
+    # wget_to_folder "$MODELS_PATH/vae/FLUX1" https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors
+    echo "Loading Flux specifics..."
+    wget_to_folder "$MODELS_PATH/xlabs/ipadapters" https://huggingface.co/XLabs-AI/flux-ip-adapter/resolve/main/ip_adapter.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/FLUX.1/jasperai" https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Depth/raw/main/diffusion_pytorch_model.safetensors
+    wget_to_folder "$MODELS_PATH/controlnet/FLUX.1/InstantX" https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/raw/main/diffusion_pytorch_model.safetensors
+    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/Comfy-Org/sigclip_vision_384/blob/main/sigclip_vision_patch14_384.safetensors
 }
 model_functions["FLUX"]=load_flux
 
