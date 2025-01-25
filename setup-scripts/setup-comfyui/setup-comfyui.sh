@@ -19,3 +19,7 @@ pip install xformers!=0.0.18 --no-cache-dir -r requirements.txt --extra-index-ur
 bash $SETUP_SCRIPTS_DIR/setup-comfyui/install-custom-nodes.sh &
 bash $SETUP_SCRIPTS_DIR/setup-comfyui/install-models.sh "{$LOAD_MODELS}" &
 wait
+
+# Navigate to ComfyUI dir
+cd $COMFY_DIR || exit
+echo 'python main.py --listen 0.0.0.0 --port $OPEN_BUTTON_PORT' > run.sh && chmod +x run.sh
