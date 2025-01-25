@@ -1,5 +1,11 @@
 #!/bin/bash
 
+INSTALL_CUSTOM_NODES="${INSTALL_CUSTOM_NODES:-1}"
+if (( "$INSTALL_CUSTOM_NODES" == "0" )); then
+    exit 1
+fi
+
+
 # Define an array of Git repository links for Custom Nodes
 declare -a custom_nodes=(
     # ComfyUI Manager
@@ -48,7 +54,7 @@ declare -a custom_nodes=(
 
 # Navigate to custom_nodes folder
 mkdir -p "$COMFY_DIR/custom_nodes"
-cd "$COMFY_DIR/custom_nodes"
+cd "$COMFY_DIR/custom_nodes" || exit
 
 # Iterate over the array and clone each repository
 for repo in "${custom_nodes[@]}"; do
@@ -56,7 +62,7 @@ for repo in "${custom_nodes[@]}"; do
 done
 
 # Navigate back to comfy dir
-cd "$COMFY_DIR"
+cd "$COMFY_DIR" || exit
 
 # Install requirements for all the custom_nodes
 echo "Installing requirements for custom nodes recursively..."
