@@ -114,9 +114,11 @@ model_functions["SD35"]=load_sd35
 # Function to load CLIPs
 load_clips() {
     echo "Loading CLIPs..."
-    wget_to_folder "$MODELS_PATH/default" https://huggingface.co/comfyanonymous/flux_text_encoders/raw/main/clip_l.safetensors
+    wget_to_folder "$MODELS_PATH/text_encoders" https://huggingface.co/comfyanonymous/flux_text_encoders/raw/main/clip_l.safetensors
     wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/stabilityai/control-lora/raw/main/revision/clip_vision_g.safetensors
-    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/openai/clip-vit-large-patch14/raw/main/model.safetensors
+    wget_to_folder "$MODELS_PATH/text_encoders/t5" https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors
+    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/openai/clip-vit-large-patch14/raw/main/model.safetensors -O clip-vit-large-patch14
+    wget_to_folder "$MODELS_PATH/clip_vision" https://huggingface.co/Comfy-Org/sigclip_vision_384/blob/main/sigclip_vision_patch14_384.safetensors
 }
 model_functions["CLIPs"]=load_clips
 
