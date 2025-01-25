@@ -29,11 +29,21 @@ declare -a custom_nodes=(
     # Switches
     "https://github.com/lquesada/ComfyUI-Interactive"
     # CLIP Segmentation
-    "https://github.com/time-river/ComfyUI-CLIPSeg"
+    "https://github.com/time-river/comfyui-clipseg"
     # Unsampler
     "https://github.com/BlenderNeko/ComfyUI_Noise"
     # Tools and widgets
     "https://github.com/pythongosssss/ComfyUI-Custom-Scripts"
+    # FLUX1 IP-Adapter nodes
+    "https://github.com/XLabs-AI/x-flux-comfyui"
+
+    # Things to make flux work???
+    "https://github.com/ClownsharkBatwing/RES4LYF"
+    "https://github.com/kijai/ComfyUI-KJNodes"
+    "https://github.com/kijai/ComfyUI-DepthAnythingV2"
+    "https://github.com/melMass/comfy_mtb"
+
+    #
 )
 
 # Navigate to custom_nodes folder
