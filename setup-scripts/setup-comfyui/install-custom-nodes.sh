@@ -70,5 +70,4 @@ find . -name 'requirements.txt' -exec pip install -r {} \;
 
 # Uninstall torch and install the right version
 echo "Uninstalling torch and installing the right version..."
-pip uninstall torch
-pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
+pip install --upgrade torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu126
