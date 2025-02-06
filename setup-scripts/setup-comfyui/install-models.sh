@@ -157,9 +157,13 @@ if [ -z "$LOAD_MODELS" ]; then
 fi
 
 if [ -z "$COMFY_DIR" ]; then
-    echo "Error: COMFY_DIR is not set"
-    echo "Use -h or --help for usage information."
-    exit 1
+    if [ -d ~/ComfyUI ]; then
+        export COMFY_DIR=~/ComfyUI
+    else
+        echo "Error: COMFY_DIR is not set"
+        echo "Use -h or --help for usage information."
+        exit 1
+    fi
 fi
 
 INSTALL_MODELS="$(INSTALL_MODELS:-1)"
